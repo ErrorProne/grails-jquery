@@ -58,7 +58,7 @@ class JQueryTagLib implements ApplicationContextAware {
      * @param body  The javascript code to execute
      */
     def jquery = {attrs, body ->
-        out << '<script type="text/javascript"> jQuery().ready(function(){'
+        out << '<script type="text/javascript">jQuery(function(){'
         out << body()
         out << '}); </script>'
     }
