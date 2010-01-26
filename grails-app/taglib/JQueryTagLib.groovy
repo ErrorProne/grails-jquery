@@ -25,7 +25,8 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class JQueryTagLib implements ApplicationContextAware {
     def jQueryConfig
 
-    GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
+    // private as fix for http://jira.codehaus.org/browse/GRAILSPLUGINS-1864, thanks to Nick Zhu
+    private GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
 
     ConfigObject config = new ConfigSlurper().parse(classLoader.loadClass('JQueryConfig'))
 
