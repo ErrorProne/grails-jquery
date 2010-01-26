@@ -32,7 +32,7 @@ checkVersion()
 configureProxy()
 
 // Hard coded for installation purpose
-def jQueryVersion = '1.4'
+def jQueryVersion = '1.4.1'
 def jQuerySources = 'jquery'
 
 Ant.sequential {
