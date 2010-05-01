@@ -150,7 +150,7 @@ class JQueryProvider implements JavascriptProvider {
 
                 if (attrs.update instanceof Map) {
                     if (attrs.update?.failure) {
-                        out << "jQuery('#${attrs.update?.failure}').html(textStatus);"
+                        out << "jQuery('#${attrs.update?.failure}').html(XMLHttpRequest.responseText);"
                     }
                 }
 

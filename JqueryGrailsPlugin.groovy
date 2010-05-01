@@ -22,7 +22,7 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-    def version = "1.4.1.1"
+    def version = "1.4.2.1"
     def dependsOn = [:]
     def author = "Sergey Nebolsin, Craig Jones and Finn Herpich"
     def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de"
@@ -33,6 +33,7 @@ class JqueryGrailsPlugin {
     GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
 
     ConfigObject config = new ConfigSlurper().parse(classLoader.loadClass('JQueryConfig'))
+                              .merge(new ConfigSlurper().parse(classLoader.loadClass('Config')))
 
     def jQueryVersion = config.jquery.version
     def jQuerySources = config.jquery.sources
