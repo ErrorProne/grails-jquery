@@ -1,11 +1,13 @@
-<plugin name='jquery' version='1.4.1.1' grailsVersion='1.2.0 &gt; *'>
+<plugin name='jquery' version='1.4.2.1' grailsVersion='1.2.2 &gt; *'>
   <author>Sergey Nebolsin, Craig Jones and Finn Herpich</author>
   <authorEmail>nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de</authorEmail>
   <title>JQuery for Grails</title>
   <description>Provides integration for the JQuery library with grails JavascriptProvider</description>
   <documentation>http://grails.org/JQuery+Plugin</documentation>
   <resources>
+    <resource>Config</resource>
     <resource>JQueryConfig</resource>
+    <resource>UrlMappings</resource>
     <resource>JQueryService</resource>
     <resource>JQueryResourceTagLib</resource>
     <resource>JQueryTagLib</resource>

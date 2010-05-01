@@ -22,44 +22,45 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-    def version = "1.4.2.1"
-    def dependsOn = [:]
-    def author = "Sergey Nebolsin, Craig Jones and Finn Herpich"
-    def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de"
-    def title = "JQuery for Grails"
-    def description = "Provides integration for the JQuery library with grails JavascriptProvider"
-    def documentation = "http://grails.org/JQuery+Plugin"
+	def version = "1.4.2.1"
+	def dependsOn = [:]
+	def author = "Sergey Nebolsin, Craig Jones and Finn Herpich"
+	def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de"
+	def title = "JQuery for Grails"
+	def description = "Provides integration for the JQuery library with grails JavascriptProvider"
+	def documentation = "http://grails.org/JQuery+Plugin"
 
-    GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
+	GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
 
-    ConfigObject config = new ConfigSlurper().parse(classLoader.loadClass('JQueryConfig'))
-                              .merge(new ConfigSlurper().parse(classLoader.loadClass('Config')))
+	// Applied GRAILSPLUGINS-2056
+	ConfigObject config = new ConfigSlurper().parse(classLoader.loadClass('JQueryConfig'))
+							.merge(new ConfigSlurper().parse(classLoader.loadClass('Config')))
 
-    def jQueryVersion = config.jquery.version
-    def jQuerySources = config.jquery.sources
+	def jQueryVersion = config.jquery.version
+	def jQuerySources = config.jquery.sources
 
-    def doWithSpring = {
-        jQueryConfig(JQueryConfig)
-    }
+	def doWithSpring = {
+		jQueryConfig(JQueryConfig)
+	}
 
-    def doWithApplicationContext = {applicationContext ->
-        if(GrailsUtil.environment == GrailsApplication.ENV_DEVELOPMENT) {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${jQuerySources}/jquery-${jQueryVersion}"]
-        } else {
-            JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${jQuerySources}/jquery-${jQueryVersion}.min"]
-        }
+	def doWithApplicationContext = {applicationContext ->
+		if(GrailsUtil.environment == GrailsApplication.ENV_DEVELOPMENT) {
+			JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${jQuerySources}/jquery-${jQueryVersion}"]
+		} else {
+			JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${jQuerySources}/jquery-${jQueryVersion}.min"]
+		}
 
-        def jQueryConfig = applicationContext.jQueryConfig
-        jQueryConfig.init()
+		def jQueryConfig = applicationContext.jQueryConfig
+		jQueryConfig.init()
 
-        if(jQueryConfig.defaultPlugins) {
-            jQueryConfig.defaultPlugins.each { pluginName ->
-                jQueryConfig.plugins."$pluginName".each {fileName ->
-                    JavascriptTagLib.LIBRARY_MAPPINGS.jquery += ["${jQuerySources}/${fileName}"[0..-4]]
-                }
-            }
-        }
+		if(jQueryConfig.defaultPlugins) {
+			jQueryConfig.defaultPlugins.each { pluginName ->
+				jQueryConfig.plugins."$pluginName".each {fileName ->
+					JavascriptTagLib.LIBRARY_MAPPINGS.jquery += ["${jQuerySources}/${fileName}"[0..-4]]
+				}
+			}
+		}
 
-        JavascriptTagLib.PROVIDER_MAPPINGS.jquery = JQueryProvider.class
-    }
+		JavascriptTagLib.PROVIDER_MAPPINGS.jquery = JQueryProvider.class
+	}
 }
