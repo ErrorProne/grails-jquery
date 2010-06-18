@@ -25,6 +25,26 @@ class JQueryResourceTagLib {
 
     JQueryService jQueryService
 
+    def pluginManager
+
+    /**
+     * Alternative to using g:javascript library tag.
+     * Will just pull in the resources, from the plugin instead of from the app.
+     * As of 1.4.2.2 you must run install-jquery script to install the files into your app
+     * instead of using the plugin versions. You may need to do this for Grails ajax tag integration,
+     * but for normal jQuery usage you should use this jq:resources tag.
+     */
+    def resources = { attrs ->
+        def plugin = pluginManager.getGrailsPlugin('jquery')
+        def jqver = plugin.instance.jQueryVersion
+        def flavour = Environment.current == Environment.DEVELOPMENT ? '' : '-min'
+        def fn = "jquery-${jqver}${flavour}.js"
+        // Let user specify local="true" to stop us loading from the plugin, instead from the app
+        def local = attrs.remove('local')?.toString() 
+        def pluginName = local?.toBoolean() ? null : 'jquery'
+        out << """<script src="${g.resource(plugin:pluginName, dir:'js/jquery', file:fn).encodeAsHTML()}" type="text/javascript"></script>"""
+    }
+    
     /**
      * Include JavaScript and CSS resources in the head.
      * -- attrs.components = comma separated list of ui components to include
@@ -89,7 +109,7 @@ class JQueryResourceTagLib {
         }
 
         js.findAll(exist.curry(jsFolder)).each {file ->
-            def src = resource(dir:jsFolder, file:file)
+            def src = resource(jsFolder, file:file)
             //def src = createLinkTo(dir: "${pluginContextPath}/js/jquery", file: file)
             out << """<script src="${src}"></script>\n"""
         }
