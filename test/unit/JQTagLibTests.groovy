@@ -1,6 +1,6 @@
 import grails.test.*
 
-class JQTagLibTests extends TagLibUnitTestCase {
+class JQueryTagLibTests extends TagLibUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
