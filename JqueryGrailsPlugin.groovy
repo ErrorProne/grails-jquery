@@ -22,7 +22,7 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-	def version = "1.4.2.4"
+	def version = "1.4.2.5"
 
     static SHIPPED_VERSION = '1.4.2'
     static SHIPPED_SRC_DIR = 'jquery'
@@ -55,11 +55,8 @@ class JqueryGrailsPlugin {
  	    }
     	ConfigObject config = confClass ? new ConfigSlurper().parse(confClass).merge(ConfigurationHolder.config) : ConfigurationHolder.config
 
-        println "Config for jQuery plugin is: ${config}"
     	JqueryGrailsPlugin.jQueryVersion = config.jquery.version instanceof String ? config.jquery.version : JqueryGrailsPlugin.SHIPPED_VERSION
     	JqueryGrailsPlugin.jQuerySources = config.jquery.sources instanceof String ? config.jquery.sources : JqueryGrailsPlugin.SHIPPED_SRC_DIR
-
-        println "Ver and sources for jQuery plugin are: ${jQueryVersion} / ${jQuerySources}"        
     }
     
 	def doWithApplicationContext = { applicationContext ->
