@@ -23,18 +23,11 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
  * @author Finn Herpich (finn.herpich <at> marfinn-software <dot> de)
  */
 class JQueryTagLib implements ApplicationContextAware {
+    static namespace = "jq"
+
     def jQueryConfig
 
-    // private as fix for http://jira.codehaus.org/browse/GRAILSPLUGINS-1864, thanks to Nick Zhu
-    private GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
-
-    ConfigObject config = new ConfigSlurper().parse(classLoader.loadClass('JQueryConfig'))
-
-    def jQueryVersion = config.jquery.version
-    def jQuerySources = config.jquery.sources
-
-
-    static namespace = "jq"
+    def pluginManager
 
     /**
      * Includes a plugin javascript file
@@ -43,10 +36,12 @@ class JQueryTagLib implements ApplicationContextAware {
      */
     def plugin = {attrs, body ->
         if(attrs.name) {
+            def plugin = pluginManager.getGrailsPlugin('jquery')
+
             // TODO kick this damn need for the config-file
             jQueryConfig.plugins."${attrs.name}".each {
                 out << '<script type="text/javascript" src="'
-                out << g.resource(dir:"js/" + jQuerySources, file:it)
+                out << g.resource(dir:"js/" + plugin.instance.class.jQuerySources, file:it)
                 out << '"></script>'
             }
         }

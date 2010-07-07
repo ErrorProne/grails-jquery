@@ -36,7 +36,8 @@ class JQueryResourceTagLib {
      */
     def resources = { attrs ->
         def plugin = pluginManager.getGrailsPlugin('jquery')
-        def jqver = plugin.instance.jQueryVersion
+        def jqver = plugin.instance.class.jQueryVersion
+
         def flavour = Environment.current == Environment.DEVELOPMENT ? '' : '-min'
         def fn = "jquery-${jqver}${flavour}.js"
         // Let user specify local="true" to stop us loading from the plugin, instead from the app

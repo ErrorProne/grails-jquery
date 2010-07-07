@@ -28,7 +28,7 @@ public class JQueryConfig {
     def plugins = [:]
 
     def init() {
-        ApplicationHolder.application.metadata.findAll{key, value ->
+        ApplicationHolder.application.metadata.findAll{ key, value ->
             key.startsWith('jquery.plugins')
         }.each {key, value ->
             // wtf?
