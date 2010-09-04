@@ -22,7 +22,7 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-	def version = "1.4.2.5"
+	def version = "1.4.2.6"
 
     static SHIPPED_VERSION = '1.4.2'
     static SHIPPED_SRC_DIR = 'jquery'
@@ -66,7 +66,7 @@ class JqueryGrailsPlugin {
 		if(GrailsUtil.environment == GrailsApplication.ENV_DEVELOPMENT) {
 			JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${JqueryGrailsPlugin.jQuerySources}/jquery-${JqueryGrailsPlugin.jQueryVersion}"]
 		} else {
-			JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${JqueryGrailsPlugin.jQuerySources}/jquery-${JqueryGrailsPlugin.jQueryVersion}-min"]
+			JavascriptTagLib.LIBRARY_MAPPINGS.jquery = ["${JqueryGrailsPlugin.jQuerySources}/jquery-${JqueryGrailsPlugin.jQueryVersion}.min"]
 		}
 
 		def jQueryConfig = applicationContext.jQueryConfig
