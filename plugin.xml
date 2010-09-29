@@ -1,4 +1,4 @@
-<plugin name='jquery' version='1.4.2.4' grailsVersion='1.2.2 &gt; *'>
+<plugin name='jquery' version='1.4.2.6' grailsVersion='1.2.2 &gt; *'>
   <author>Sergey Nebolsin, Craig Jones and Finn Herpich</author>
   <authorEmail>nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de</authorEmail>
   <title>JQuery for Grails</title>
@@ -13,5 +13,15 @@
     <resource>JQueryTagLib</resource>
   </resources>
   <dependencies />
-  <behavior />
+  <behavior>
+    <method name='getProperty' artefact='Filters' type='JQueryConfig'>
+      <description />
+      <argument type='java.lang.String' />
+    </method>
+    <method name='invokeMethod' artefact='Filters' type='JQueryConfig'>
+      <description />
+      <argument type='java.lang.String' />
+      <argument type='java.lang.Object' />
+    </method>
+  </behavior>
 </plugin>
