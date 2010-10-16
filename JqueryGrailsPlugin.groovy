@@ -22,9 +22,9 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-	def version = "1.4.2.6"
+	def version = "1.4.3.1"
 
-    static SHIPPED_VERSION = '1.4.2'
+    static SHIPPED_VERSION = '1.4.3'
     static SHIPPED_SRC_DIR = 'jquery'
 
     // the version or versions of Grails the plugin is designed for
