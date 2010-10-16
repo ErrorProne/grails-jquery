@@ -32,6 +32,13 @@ class JqueryGrailsPlugin {
 
 	def dependsOn = [:]
 
+	def pluginExcludes = [
+			"web-app/css",
+			"web-app/images",
+			"web-app/js/prototype",
+			"web-app/js/application.js"
+	]
+
 	def author = "Sergey Nebolsin, Craig Jones and Finn Herpich"
 	def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de"
 	def title = "JQuery for Grails"
