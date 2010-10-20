@@ -1,5 +1,3 @@
-import org.apache.tools.ant.taskdefs.Ant
-
 Ant.property(environment:"env")
 grailsHome = Ant.antProject.properties."env.GRAILS_HOME"
 
