@@ -22,9 +22,9 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-	def version = "1.4.3.2"
+	def version = "1.4.4"
 
-    static SHIPPED_VERSION = '1.4.3'
+    static SHIPPED_VERSION = '1.4.4'
     static SHIPPED_SRC_DIR = 'jquery'
 
     // the version or versions of Grails the plugin is designed for
@@ -39,8 +39,8 @@ class JqueryGrailsPlugin {
 			"web-app/js/application.js"
 	]
 
-	def author = "Sergey Nebolsin, Craig Jones and Finn Herpich"
-	def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com and finn.herpich@marfinn-software.de"
+	def author = "Sergey Nebolsin, Craig Jone, Marc Palmer and Finn Herpich"
+	def authorEmail = "nebolsin@gmail.com, craigjones@maximsc.com, marc@grailsrocks.com and finn.herpich@marfinn-software.de"
 	def title = "JQuery for Grails"
 	def description = "Provides integration for the JQuery library with grails JavascriptProvider"
 	def documentation = "http://grails.org/JQuery+Plugin"
