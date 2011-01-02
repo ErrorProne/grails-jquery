@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationContext
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.springframework.context.ApplicationContextAware
 
-/**
+ /**
  * @author Sergey Nebolsin (nebolsin@prophotos.ru)
  * @author Finn Herpich (finn.herpich <at> marfinn-software <dot> de)
  */
@@ -76,15 +75,6 @@ class JQueryTagLib implements ApplicationContextAware {
         // out
         out << /jQuery("#${attrs['sourceId']}").${attrs['event']}(function(){jQuery("#${attrs['targetId']}").toggle("${attrs['speed']}"); return false; });/
     }
-
-    // TODO add more fancy stuff here ;)
-    // Tabs
-    // Accordion -> Bassistance-plugin
-    // tooltips -> Bassistance-plugin
-    // caroussel
-    // autocomplete
-    // dialogs
-    // moar
 
     /**
      * Creates a jQuery-function which returns the value of the specified element
