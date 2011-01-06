@@ -22,9 +22,9 @@ import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class JqueryGrailsPlugin {
-	def version = "1.4.4"
+	// Only change the point release. Edit o.c.g.g.o.j.JQueryConfig.SHIPPED_VERSION when changing jQuery resource version
+	def version = JQueryConfig.SHIPPED_VERSION + ".1" 
 
-    static SHIPPED_VERSION = '1.4.4'
     static SHIPPED_SRC_DIR = 'jquery'
 
     // the version or versions of Grails the plugin is designed for
@@ -62,7 +62,7 @@ class JqueryGrailsPlugin {
  	    }
     	ConfigObject config = confClass ? new ConfigSlurper().parse(confClass).merge(ConfigurationHolder.config) : ConfigurationHolder.config
 
-    	JqueryGrailsPlugin.jQueryVersion = config.jquery.version instanceof String ? config.jquery.version : JqueryGrailsPlugin.SHIPPED_VERSION
+    	JqueryGrailsPlugin.jQueryVersion = config.jquery.version instanceof String ? config.jquery.version : JQueryConfig.SHIPPED_VERSION
     	JqueryGrailsPlugin.jQuerySources = config.jquery.sources instanceof String ? config.jquery.sources : JqueryGrailsPlugin.SHIPPED_SRC_DIR
     }
     

@@ -27,6 +27,8 @@ public class JQueryConfig {
     def defaultPlugins
     def plugins = [:]
 
+    static SHIPPED_VERSION = '1.4.4'
+
     def init() {
         ApplicationHolder.application.metadata.findAll{ key, value ->
             key.startsWith('jquery.plugins')
