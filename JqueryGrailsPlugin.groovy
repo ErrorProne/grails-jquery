@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import grails.util.GrailsUtil;
-import org.codehaus.groovy.grails.commons.GrailsApplication;
+import grails.util.GrailsUtil
+import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.plugins.web.taglib.*
 import org.codehaus.groovy.grails.plugins.jquery.JQueryConfig
 import org.codehaus.groovy.grails.plugins.jquery.JQueryProvider
@@ -24,7 +24,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class JqueryGrailsPlugin {
 	// Only change the point release. Edit o.c.g.g.o.j.JQueryConfig.SHIPPED_VERSION when changing jQuery resource version
 	// This should match JQueryConfig.SHIPPED_VERSION but must be a literal here due to how AstPluginDescriptorReader parses this file
-	def version = "1.5.1"
+	def version = "1.5.2"
 
     static SHIPPED_SRC_DIR = 'jquery'
 
