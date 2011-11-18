@@ -2,7 +2,7 @@ Ant.property(environment:"env")
 grailsHome = Ant.antProject.properties."env.GRAILS_HOME"
 
 // Hard coded for installation purpose
-def jQueryVersion = '1.6.1'
+def jQueryVersion = '1.7'
 def jQuerySources = 'jquery'
 
 includeTargets << grailsScript("_GrailsEvents")
