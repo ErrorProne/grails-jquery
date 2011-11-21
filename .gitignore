@@ -1,3 +1,5 @@
+plugin.xml
+/grails-jquery-*.zip
 out/*
 target/*
 .idea/*
