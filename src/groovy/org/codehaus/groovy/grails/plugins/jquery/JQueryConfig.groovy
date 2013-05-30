@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.codehaus.groovy.grails.plugins.jquery;
+package org.codehaus.groovy.grails.plugins.jquery
 
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
@@ -23,7 +23,7 @@ import org.codehaus.groovy.grails.commons.ApplicationHolder
  *
  * @author Sergey Nebolsin (nebolsin@prophotos.ru)
  */
-public class JQueryConfig {
+class JQueryConfig {
     def defaultPlugins
     def plugins = [:]
 

@@ -15,9 +15,8 @@
  */
 
 import grails.util.Environment
+
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-//import org.codehaus.groovy.grails.plugins.web.taglib.*
 
 class JQueryResourceTagLib {
 

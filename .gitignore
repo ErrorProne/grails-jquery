@@ -4,3 +4,4 @@ out/*
 target/*
 .idea/*
 *.iml
+web-app/WEB-INF

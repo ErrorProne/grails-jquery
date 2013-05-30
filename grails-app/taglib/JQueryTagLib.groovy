@@ -93,13 +93,9 @@ class JQueryTagLib implements ApplicationContextAware {
         out << /jQuery('${selector}').fieldValue()[0]/
     }
 
-    /**
-     * Well, set the application context...
-     */
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    void setApplicationContext(ApplicationContext applicationContext) {
         jQueryConfig = applicationContext.jQueryConfig
     }
-
 
     def toggleelement = {attrs ->
         log.info('toggleelement is deprecated, please use toggle instead')

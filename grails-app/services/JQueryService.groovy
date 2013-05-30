@@ -18,7 +18,7 @@ import org.springframework.beans.factory.InitializingBean
 
 class JQueryService implements InitializingBean {
 
-    boolean transactional = false
+    static transactional = false
 
     String jsFolder
     String cssFolder
