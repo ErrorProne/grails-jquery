@@ -27,7 +27,7 @@ class JQueryConfig {
     def defaultPlugins
     def plugins = [:]
 
-    static SHIPPED_VERSION = '1.10.0'
+    static SHIPPED_VERSION = '1.10.2'
 
     def init() {
         ApplicationHolder.application.metadata.findAll{ key, value ->
