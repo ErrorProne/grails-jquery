@@ -16,11 +16,7 @@
 
 package org.codehaus.groovy.grails.plugins.jquery
 
-import org.codehaus.groovy.grails.commons.ApplicationHolder
-
 /**
- * TODO: write javadoc
- *
  * @author Sergey Nebolsin (nebolsin@prophotos.ru)
  */
 class JQueryConfig {
@@ -30,7 +26,9 @@ class JQueryConfig {
     static SHIPPED_VERSION = '1.10.2'
 
     def init() {
-        ApplicationHolder.application.metadata.findAll{ key, value ->
+
+        def application = org.codehaus.groovy.grails.commons.ApplicationHolder.application
+        application.metadata.findAll { key, value ->
             key.startsWith('jquery.plugins')
         }.each {key, value ->
             // wtf?
@@ -38,6 +36,6 @@ class JQueryConfig {
             plugins."$pluginName" = value.split(",") as List
         }
 
-        defaultPlugins = ApplicationHolder.application.config.jquery?.defaultPlugins
+        defaultPlugins = application.config.jquery?.defaultPlugins
     }
 }

@@ -34,8 +34,8 @@ class JqueryGrailsPlugin {
 		'src/docs/**'
 	]
 
-	def title = "JQuery for Grails"
-	def description = "Provides integration for the JQuery library with Grails JavascriptProvider"
+	def title = "jQuery for Grails"
+	def description = "Provides integration for the jQuery library with Grails JavascriptProvider"
 	def documentation = "http://grails.org/plugin/jquery"
 	def license = "APACHE"
 	def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPJQUERY" ]
@@ -63,7 +63,7 @@ class JqueryGrailsPlugin {
 		} catch (Exception e) {
 			// <gulp>
 		}
-		ConfigObject config = confClass ? new ConfigSlurper().parse(confClass).merge(application.config) : application.config
+		ConfigObject config = confClass ? new ConfigSlurper(Environment.current.name).parse(confClass).merge(application.config) : application.config
 
 		JqueryGrailsPlugin.jQueryVersion = config.jquery.version instanceof String ? config.jquery.version : JQueryConfig.SHIPPED_VERSION
 		JqueryGrailsPlugin.jQuerySources = config.jquery.sources instanceof String ? config.jquery.sources : JqueryGrailsPlugin.SHIPPED_SRC_DIR
@@ -82,7 +82,7 @@ class JqueryGrailsPlugin {
 		def jQueryConfig = applicationContext.jQueryConfig
 		jQueryConfig.init()
 
-		if(jQueryConfig.defaultPlugins) {
+		if (jQueryConfig.defaultPlugins) {
 			jQueryConfig.defaultPlugins.each { pluginName ->
 				jQueryConfig.plugins."$pluginName".each {fileName ->
 					JavascriptTagLib.LIBRARY_MAPPINGS.jquery += ["${JqueryGrailsPlugin.jQuerySources}/${fileName}"[0..-4]]

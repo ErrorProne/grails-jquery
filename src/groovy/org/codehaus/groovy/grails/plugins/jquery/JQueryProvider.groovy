@@ -23,6 +23,7 @@ import org.codehaus.groovy.grails.plugins.web.taglib.JavascriptProvider
  * @author Finn Herpich (finn.herpich <at> marfinn-software <dot> de)
  */
 class JQueryProvider implements JavascriptProvider {
+
 	/**
 	 * doRemoteFunction creates a jQuery-AJAX-Call
 	 *
@@ -34,8 +35,9 @@ class JQueryProvider implements JavascriptProvider {
 	 */
 	def doRemoteFunction(taglib, attrs, out) {
 		// Optional, onLoad
-		if(attrs.onLoading)
+		if (attrs.onLoading) {
 			out << "${attrs.onLoading};"
+		}
 
 		// Start ajax
 		out << /jQuery.ajax({/
@@ -45,26 +47,27 @@ class JQueryProvider implements JavascriptProvider {
 		out << "type:'$method'"
 
 		// Optional, synchron call
-		if("false" == attrs.asynchronous) {
+		if ("false" == attrs.asynchronous) {
 			out << ",async:false"
 			attrs.remove('asynchronous')
 		}
 
 		// Optional, dataType to use
-		if(attrs.dataType)
+		if (attrs.dataType) {
 			out << ",dataType:'${attrs.remove('dataType')}'"
+		}
 
 		// Additional attributes
-		if(attrs.params || attrs.jsParams) {
-			if(!(attrs?.params instanceof Map)) {
+		if (attrs.params || attrs.jsParams) {
+			if (!(attrs?.params instanceof Map)) {
 				// tags like remoteField don't deliver a map
 				out << ",data:${attrs.remove('params')}"
 			} else {
 				out << ",data:{"
 
-				def hasParams = false
+				boolean hasParams = false
 
-				if(attrs?.params instanceof Map) {
+				if (attrs?.params instanceof Map) {
 					hasParams = true
 					out << attrs.remove('params').collect { k, v ->
 						"\'" +
@@ -75,9 +78,10 @@ class JQueryProvider implements JavascriptProvider {
 					}.join(",")
 				}
 
-				if(attrs?.jsParams instanceof Map) {
-					if(hasParams)
+				if (attrs?.jsParams instanceof Map) {
+					if (hasParams) {
 						out << ","
+					}
 
 					out << attrs.remove('jsParams').collect { k, v ->
 						"\'" +
@@ -116,32 +120,35 @@ class JQueryProvider implements JavascriptProvider {
 	}
 
 	/**
-	 *  Helper method to create callback object
+	 * Helper method to create callback object
 	 *
 	 * @param attrs Attributes to use for the callback
-	 * @param out   Variable to attache the output
+	 * @param out Variable to attache the output
 	 */
 	def buildCallback(attrs, out) {
 		// TODO check for strlen
-		if(out)
+		if (out) {
 			out << ','
+		}
 
 		//*** success
 		out << 'success:function(data,textStatus){'
 
-		if(attrs.onLoaded)
+		if (attrs.onLoaded) {
 			out << "${attrs.onLoaded};"
-
-		if(attrs.update instanceof Map) {
-			if(attrs.update?.success) {
-				out << "jQuery('#${attrs.update.success}').html(data);"
-			}
-		} else if(attrs.update) {
-			out <<  "jQuery('#${attrs.update}').html(data);"
 		}
 
-		if(attrs.onSuccess)
+		if (attrs.update instanceof Map) {
+			if (attrs.update?.success) {
+				out << "jQuery('#${attrs.update.success}').html(data);"
+			}
+		} else if (attrs.update) {
+			out << "jQuery('#${attrs.update}').html(data);"
+		}
+
+		if (attrs.onSuccess) {
 			out << "${attrs.onSuccess};"
+		}
 
 		out << '}'
 
@@ -155,13 +162,15 @@ class JQueryProvider implements JavascriptProvider {
 			}
 		}
 
-		if (attrs.onFailure)
+		if (attrs.onFailure) {
 			out << "${attrs.onFailure};"
+		}
 
 		out << '}'
 
-		if(attrs.onComplete)
+		if (attrs.onComplete) {
 			out << ",complete:function(XMLHttpRequest,textStatus){${attrs.onComplete}}"
+		}
 	}
 
 	/**
@@ -171,9 +180,11 @@ class JQueryProvider implements JavascriptProvider {
 	 */
 	def prepareAjaxForm(attrs) {
 		// Fix for http://jira.codehaus.org/browse/GRAILSPLUGINS-1865
-		if(attrs.forSubmitTag)
+		if (attrs.forSubmitTag) {
 			attrs.params = "jQuery(this).parents('form:first').serialize()".toString()
-		else
+		}
+		else {
 			attrs.params = "jQuery(this).serialize()".toString()
+		}
 	}
 }

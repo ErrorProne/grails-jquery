@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationContextAware
  * @author Finn Herpich (finn.herpich <at> marfinn-software <dot> de)
  */
 class JQueryTagLib implements ApplicationContextAware {
+
     static namespace = "jq"
 
     def jQueryConfig
@@ -33,16 +34,18 @@ class JQueryTagLib implements ApplicationContextAware {
      *
      * @param attrs A plugin to use
      */
-    def plugin = {attrs, body ->
-        if(attrs.name) {
-            def plugin = pluginManager.getGrailsPlugin('jquery')
+    def plugin = { attrs, body ->
+        if (!attrs.name) {
+            return
+        }
 
-            // TODO kick this damn need for the config-file
-            jQueryConfig.plugins."${attrs.name}".each {
-                out << '<script type="text/javascript" src="'
-                out << g.resource(dir:"js/" + plugin.instance.class.jQuerySources, file:it)
-                out << '"></script>'
-            }
+        def plugin = pluginManager.getGrailsPlugin('jquery')
+
+        // TODO kick this damn need for the config-file
+        jQueryConfig.plugins."${attrs.name}".each {
+            out << '<script type="text/javascript" src="'
+            out << g.resource(dir: "js/" + plugin.instance.getClass().jQuerySources, file: it)
+            out << '"></script>'
         }
     }
 
@@ -52,7 +55,7 @@ class JQueryTagLib implements ApplicationContextAware {
      * @param attrs No use
      * @param body  The javascript code to execute
      */
-    def jquery = {attrs, body ->
+    def jquery = { attrs, body ->
         out << '<script type="text/javascript">jQuery(function(){'
         out << body()
         out << '}); </script>'
@@ -67,10 +70,10 @@ class JQueryTagLib implements ApplicationContextAware {
      *              event    -> event to fire the toggle action on (OPTIONAL)
      *              speed    -> effect-speed (OPTIONAL)
      */
-    def toggle = {attrs ->
+    def toggle = { attrs ->
         // Default values
-        if(!attrs.event) attrs.event = 'click'
-        if(!attrs.speed) attrs.speed = 'normal'
+        if (!attrs.event) attrs.event = 'click'
+        if (!attrs.speed) attrs.speed = 'normal'
 
         // out
         out << /jQuery("#${attrs['sourceId']}").${attrs['event']}(function(){jQuery("#${attrs['targetId']}").toggle("${attrs['speed']}"); return false; });/
@@ -81,12 +84,12 @@ class JQueryTagLib implements ApplicationContextAware {
      *
      * @param attrs Must contain either an attribute selector or elementId that specifies the target element
      */
-    def fieldValue = {attrs ->
+    def fieldValue = { attrs ->
         def selector
 
-        if(attrs.selector) {
+        if (attrs.selector) {
             selector = attrs['selector']
-        } else if(attrs.elementId) {
+        } else if (attrs.elementId) {
             selector = /#${attrs['elementId']}/
         }
 
@@ -97,7 +100,7 @@ class JQueryTagLib implements ApplicationContextAware {
         jQueryConfig = applicationContext.jQueryConfig
     }
 
-    def toggleelement = {attrs ->
+    def toggleelement = { attrs ->
         log.info('toggleelement is deprecated, please use toggle instead')
         out << /jQuery("#${attrs['linkId']}").${attrs['event']}(function(){ jQuery("#${attrs['elementId']}").toggle("${attrs['speed']}"); return false; });/
     }

@@ -1,7 +1,9 @@
+*.log
+/target
+/docs
+grails-jquery-*.zip
+grails-jquery-*.zip.sha1
 plugin.xml
-/grails-jquery-*.zip*
-out/*
-target/*
-.idea/*
+.idea
 *.iml
 web-app/WEB-INF
