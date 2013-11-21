@@ -23,7 +23,7 @@ class JQueryConfig {
     def defaultPlugins
     def plugins = [:]
 
-    static SHIPPED_VERSION = '1.10.2'
+    static SHIPPED_VERSION = '1.10.2.1'
 
     def init() {
 
