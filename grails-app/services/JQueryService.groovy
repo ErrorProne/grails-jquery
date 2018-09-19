@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import grails.util.Environment
+
 import org.springframework.beans.factory.InitializingBean
 
 class JQueryService implements InitializingBean {
 
-    boolean transactional = false
+    static transactional = false
 
     String jsFolder
     String cssFolder
@@ -33,7 +35,7 @@ class JQueryService implements InitializingBean {
     def pathWhichDoNotExist = []
 
     void afterPropertiesSet() {
-        ConfigObject config = new ConfigSlurper().parse(grailsApplication.classLoader.loadClass('JQueryConfig'))
+        ConfigObject config = new ConfigSlurper(Environment.current.name).parse(grailsApplication.classLoader.loadClass('JQueryConfig'))
 
         jsFolder    = config?.jquery?.sources ?: 'js/jquery'
         coreSuffix  = config?.jquery?.coreSuffix?: 'core'
@@ -48,20 +50,10 @@ class JQueryService implements InitializingBean {
             jsFolder = 'js/' + jsFolder
         }
 
-
         // clean or prepare the folder path
         jsFolder    = cleanPath(jsFolder)
         cssFolder   = cleanPath(cssFolder)
         minFolder   = cleanPath(minFolder)
-
-        /*
-        println "jsFolder: ${jsFolder}"
-        println "coreSuffix: ${coreSuffix}"
-        println "cssFolder: ${cssFolder}"
-        println "cssDefault: ${cssDefault}"
-        println "minFolder: ${minFolder}"
-        println "minExt: ${minExt}"
-        */
     }
 
     // all this is to avoid checking the filesystem too often
@@ -73,11 +65,8 @@ class JQueryService implements InitializingBean {
         if (!pathChecked.contains(path)) {
             checkPath path
         }
-        if (pathWhichDoNotExist.contains(path)) {
-            return false
-        } else {
-            return true
-        }
+
+        !pathWhichDoNotExist.contains(path)
     }
 
     def checkPath = {path ->
@@ -88,11 +77,9 @@ class JQueryService implements InitializingBean {
     }
 
     def cleanPath = { path ->
-        if (path != null
-         && path != ''
-         && !path?.endsWith('/')) {
+        if (path && !path?.endsWith('/')) {
             path += '/'
-         }
-         path
+        }
+        path
     }
 }

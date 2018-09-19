@@ -15,9 +15,8 @@
  */
 
 import grails.util.Environment
+
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-//import org.codehaus.groovy.grails.plugins.web.taglib.*
 
 class JQueryResourceTagLib {
 
@@ -36,16 +35,16 @@ class JQueryResourceTagLib {
      */
     def resources = { attrs ->
         def plugin = pluginManager.getGrailsPlugin('jquery')
-        def jqver = plugin.instance.class.jQueryVersion
+        def jqver = plugin.instance.getClass().jQueryVersion
 
-        def flavour = Environment.current == Environment.DEVELOPMENT ? '' : '.min'
+        def flavour = Environment.isDevelopmentMode() ? '' : '.min'
         def fn = "jquery-${jqver}${flavour}.js"
         // Let user specify local="true" to stop us loading from the plugin, instead from the app
-        def local = attrs.remove('local')?.toString() 
+        def local = attrs.remove('local')?.toString()
         def pluginName = local?.toBoolean() ? null : 'jquery'
         out << """<script src="${g.resource(plugin:pluginName, dir:'js/jquery', file:fn).encodeAsHTML()}" type="text/javascript"></script>"""
     }
-    
+
     /**
      * Include JavaScript and CSS resources in the head.
      * -- attrs.components = comma separated list of ui components to include
@@ -54,13 +53,12 @@ class JQueryResourceTagLib {
      * -- attrs.mode = javascript packing to use. Can be 'min' (default),
      *    'packed' or 'normal'
      */
-    def resource = {attrs ->
+    def resource = { attrs ->
         def components = attrs.remove('components')
         if (components instanceof String) {
             components = components.split(/[,;]/).collect {it.trim()}
         }
         if (!components) throw new GrailsTagException("The resources tag must have a 'components' attribute")
-
 
         def jsFolder    = jQueryService.jsFolder
         def coreSuffix  = jQueryService.coreSuffix
@@ -74,15 +72,14 @@ class JQueryResourceTagLib {
         def exist       = jQueryService.exist
         def cleanPath   = jQueryService.cleanPath
 
-        def mode = Environment.current == Environment.DEVELOPMENT ? 'normal' : 'min'
-        def bundle  = attrs.remove('bundle') ?: ''
-        def theme   = attrs.remove('theme') ?: cssDefault
-        theme       = cleanPath(theme)
+        def mode = Environment.isDevelopmentMode() ? 'normal' : 'min'
+        def bundle = attrs.remove('bundle') ?: ''
+        def theme = cleanPath(attrs.remove('theme') ?: cssDefault)
 
         def js = []
         def css = []
         def subdir = ''
-        switch(mode) {
+        switch (mode) {
             case 'min':
                 subdir = minFolder
                 mode = '.' + minExt
@@ -98,7 +95,7 @@ class JQueryResourceTagLib {
 
         if (bundle) bundle += '.'
 
-        components.each {component ->
+        components.each { component ->
             addResource "${subdir}${bundle}${component}${mode}.js", js
             addResource "${theme}${bundle}${component}.css", css
         }

@@ -1,26 +1,22 @@
-Ant.property(environment:"env")
-grailsHome = Ant.antProject.properties."env.GRAILS_HOME"
-
 // Hard coded for installation purpose
-def jQueryVersion = '1.4.4'
+def jQueryVersion = '1.10.2'
 def jQuerySources = 'jquery'
 
 includeTargets << grailsScript("_GrailsEvents")
 
-target ('default': "Sets the current application version") {
-    Ant.sequential {
-        event("StatusUpdate", ["Downloading JQuery ${jQueryVersion}"])
+target(installJQuery: "Downloads jQuery from code.jquery.com") {
 
-        def files = ["jquery-${jQueryVersion}.js", "jquery-${jQueryVersion}.min.js"]
+    event("StatusUpdate", ["Downloading jQuery ${jQueryVersion}"])
 
-        mkdir(dir:"${basedir}/web-app/js/${jQuerySources}")
-        files.each {
-            get(dest:"${basedir}/web-app/js/${jQuerySources}/${it}",
-                src:"http://code.jquery.com/${it}",
-                verbose:true)
-        }
+    mkdir(dir:"${basedir}/web-app/js/${jQuerySources}")
+
+    ["jquery-${jQueryVersion}.js", "jquery-${jQueryVersion}.min.js"].each {
+        get(dest: "${basedir}/web-app/js/${jQuerySources}/${it}",
+            src: "http://code.jquery.com/${it}",
+            verbose: true)
     }
+
     event("StatusFinal", ["JQuery ${jQueryVersion} installed successfully"])
 }
 
-
+setDefaultTarget 'installJQuery'
